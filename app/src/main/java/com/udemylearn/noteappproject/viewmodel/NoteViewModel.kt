@@ -33,8 +33,4 @@ class NoteViewModel(
         noteRepository.getAllNotes()
     }
 
-    fun searchNotes(query :String?){
-        noteRepository.searchNote(query)
-    }
-
 }

@@ -40,7 +40,7 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
 
-        var currentList = differ.currentList[position]
+        val currentList = differ.currentList[position]
 
         holder.itemBinding.tvLayoutNoteBody.text =
             currentList.noteBody
@@ -49,7 +49,8 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
             currentList.noteTitle
 
         holder.itemView.setOnClickListener{
-            it.findNavController().navigate(NoteHomeFragmentDirections.actionNoteHomeFragmentToUpdateNoteFragment(currentList))
+            val direction = NoteHomeFragmentDirections.actionNoteHomeFragmentToUpdateNoteFragment(currentList)
+            it.findNavController().navigate(direction)
         }
     }
 
