@@ -1,27 +1,43 @@
 package com.udemylearn.noteappproject.fragments
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.udemylearn.noteappproject.R
 import com.udemylearn.noteappproject.databinding.FragmentNewNoteBinding
 
-class NewNoteFragment : Fragment() {
+class NewNoteFragment : Fragment(R.layout.fragment_new_note) {
 
-    private lateinit var binding: FragmentNewNoteBinding
+    private var _binding : FragmentNewNoteBinding? = null
+    private val binding get() = _binding!!
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_new_note, container, false)
+        _binding = FragmentNewNoteBinding.inflate(inflater, container, false)
+
+        return binding.root
     }
 
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.new_note_menu, menu)
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        _binding = null
+    }
 }
