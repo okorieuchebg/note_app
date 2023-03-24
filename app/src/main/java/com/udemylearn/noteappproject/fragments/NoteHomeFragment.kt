@@ -49,7 +49,6 @@ class NoteHomeFragment : Fragment(R.layout.fragment_note_home) {
 
         setUpRecyclerView()
 
-
     }
 
 
@@ -68,18 +67,20 @@ class NoteHomeFragment : Fragment(R.layout.fragment_note_home) {
             adapter = noteAdapter
         }
 
-        activity.let {
+        activity?.let {
             notesViewModel.getAllNotes().observe(
-                viewLifecycleOwner, {
-                    noteAdapter.differ.submitList(it)
+                viewLifecycleOwner, {note ->
+                    noteAdapter.differ.submitList(note)
                 }
             )
         }
     }
 
     override fun onDestroy() {
-        super.onDestroy()
+
         _binding = null
+
+        super.onDestroy()
     }
 
 }

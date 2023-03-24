@@ -8,8 +8,9 @@ import kotlinx.parcelize.Parcelize
 @Entity(tableName = "notes")
 @Parcelize
 data class Note(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     var id :Int,
     var noteTitle :String,
     var noteBody :String
+
 ) :Parcelable

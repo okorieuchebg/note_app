@@ -13,7 +13,7 @@ import com.udemylearn.noteappproject.model.Note
 
 class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
-    inner class NoteViewHolder(val itemBinding: NoteViewLayoutBinding) :
+    class NoteViewHolder(val itemBinding: NoteViewLayoutBinding) :
         RecyclerView.ViewHolder(itemBinding.root)
 
     private val differCallback = object : DiffUtil.ItemCallback<Note>(){
@@ -32,7 +32,8 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         return NoteViewHolder(
-            NoteViewLayoutBinding.inflate(LayoutInflater.from(parent.context),
+            NoteViewLayoutBinding.inflate(
+                LayoutInflater.from(parent.context),
                 parent,
                 false)
         )
@@ -51,6 +52,7 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
         holder.itemView.setOnClickListener{
             val direction = NoteHomeFragmentDirections.
             actionNoteHomeFragmentToUpdateNoteFragment(currentNote)
+
             it.findNavController().navigate(direction)
         }
     }
