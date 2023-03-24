@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.udemylearn.noteappproject.MainActivity
 import com.udemylearn.noteappproject.R
+import com.udemylearn.noteappproject.adapter.NoteAdapter
 import com.udemylearn.noteappproject.databinding.FragmentNoteHomeBinding
 import com.udemylearn.noteappproject.viewmodel.NoteViewModel
 
@@ -17,6 +19,8 @@ class NoteHomeFragment : Fragment(R.layout.fragment_note_home) {
     private val binding get() = _binding!!
 
     private lateinit var notesViewModel: NoteViewModel
+
+    private lateinit var noteAdapter: NoteAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +44,35 @@ class NoteHomeFragment : Fragment(R.layout.fragment_note_home) {
         binding.fabNewNote.setOnClickListener {
             it.findNavController().navigate(
                 R.id.action_noteHomeFragment_to_newNoteFragment
+            )
+        }
+
+        setUpRecyclerView()
+
+
+    }
+
+
+    private fun setUpRecyclerView(){
+        noteAdapter = NoteAdapter()
+
+        binding.recyclerView.apply {
+
+            layoutManager = StaggeredGridLayoutManager(
+                2,
+                StaggeredGridLayoutManager.VERTICAL
+            )
+
+            setHasFixedSize(true)
+
+            adapter = noteAdapter
+        }
+
+        activity.let {
+            notesViewModel.getAllNotes().observe(
+                viewLifecycleOwner, {
+                    noteAdapter.differ.submitList(it)
+                }
             )
         }
     }

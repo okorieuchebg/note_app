@@ -29,8 +29,6 @@ class NoteViewModel(
         }
     }
 
-    fun getAllNotes(){
-        noteRepository.getAllNotes()
-    }
+    fun getAllNotes() = noteRepository.getAllNotes()
 
 }

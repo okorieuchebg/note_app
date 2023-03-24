@@ -13,7 +13,7 @@ import com.udemylearn.noteappproject.model.Note
 
 class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
-    inner class NoteViewHolder(var itemBinding: NoteViewLayoutBinding) :
+    inner class NoteViewHolder(val itemBinding: NoteViewLayoutBinding) :
         RecyclerView.ViewHolder(itemBinding.root)
 
     private val differCallback = object : DiffUtil.ItemCallback<Note>(){
@@ -28,7 +28,7 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
         }
     }
 
-    private val differ = AsyncListDiffer(this, differCallback)
+    val differ = AsyncListDiffer(this, differCallback)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         return NoteViewHolder(
@@ -40,16 +40,17 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
 
-        val currentList = differ.currentList[position]
+        val currentNote = differ.currentList[position]
 
         holder.itemBinding.tvLayoutNoteBody.text =
-            currentList.noteBody
+            currentNote.noteBody
 
         holder.itemBinding.tvLayoutNoteTitle.text =
-            currentList.noteTitle
+            currentNote.noteTitle
 
         holder.itemView.setOnClickListener{
-            val direction = NoteHomeFragmentDirections.actionNoteHomeFragmentToUpdateNoteFragment(currentList)
+            val direction = NoteHomeFragmentDirections.
+            actionNoteHomeFragmentToUpdateNoteFragment(currentNote)
             it.findNavController().navigate(direction)
         }
     }
