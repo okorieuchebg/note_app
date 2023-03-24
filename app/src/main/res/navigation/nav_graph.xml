@@ -47,6 +47,7 @@
             android:name="note"
             app:argType="com.udemylearn.noteappproject.model.Note"
             app:nullable="true" />
+
     </fragment>
     <fragment
         android:id="@+id/noteHomeFragment"
