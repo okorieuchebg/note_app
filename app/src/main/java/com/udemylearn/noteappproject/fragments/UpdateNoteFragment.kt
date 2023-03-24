@@ -1,5 +1,6 @@
 package com.udemylearn.noteappproject.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -77,8 +78,42 @@ class UpdateNoteFragment : Fragment(R.layout.fragment_note_update) {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
+
+        menu.clear()
+
         inflater.inflate(R.menu.note_update_menu, menu)
+
+        super.onCreateOptionsMenu(menu, inflater)
+
+    }
+
+
+    private fun delete(){
+
+        AlertDialog.Builder(activity).apply {
+            setTitle("Delete Note")
+            setMessage("Are you sure you want to delete this note?")
+
+            setPositiveButton("DELETE"){_, _ ->
+                notesViewModel.deleteNote(currentNote)
+
+                Toast.makeText(activity, "Note deleted", Toast.LENGTH_SHORT).show()
+
+                view?.findNavController()?.navigate(R.id.action_updateNoteFragment_to_noteHomeFragment)
+            }
+
+            setNegativeButton("CANCEL", null)
+        }.create().show()
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when (item.itemId){
+            R.id.menu_delete -> delete()
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroy() {
