@@ -11,6 +11,8 @@ data class Note(
     @PrimaryKey(autoGenerate = true)
     var id :Int,
     var noteTitle :String,
-    var noteBody :String
+    var noteBody :String,
+//    var date : Long,
+//    var img :Int
 
 ) :Parcelable

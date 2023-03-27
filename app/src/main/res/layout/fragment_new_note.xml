@@ -48,6 +48,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp"
                     android:gravity="start|top"
+                    android:background="@android:color/transparent"
                     android:hint="Note..."
                     android:inputType="textMultiLine"
                     android:textColor="@color/black" />
